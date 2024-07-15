@@ -1,23 +1,30 @@
 'use client'
-import React, { useEffect } from 'react';
-import places from '../places.json';
-import { loadGoogleMapsAPI } from './loadGoogleMapsAPI'
+import { filter } from './filter';
 
 export const addMarker = (map: google.maps.Map | null) => {
+        
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { latitude, longitude } = position.coords;
+      console.log(latitude, longitude);
+      const shelters = filter({ latitude: latitude, longitude: longitude });
+      
     
-        places.locations.forEach((location) => {
+       shelters.forEach((shelter) => {
           const marker = new google.maps.Marker({
-            position: { lat: location.緯度 || 1111, lng: location.経度 || 1111 },
+            position: { lat:shelter.緯度 || 1111, lng:shelter.経度 || 1111 },
             map: map,
-            title: location.名称,
+            title:shelter.避難施設名称,
           });
-    
+
+          
+         
           const infoWindow = new google.maps.InfoWindow({
-            content: `<h3>${location.名称}</h3><a href="${location.URL}">詳細はこちら</a><p>${location.住所}</p><p>${location.説明}</p>`,
+            content: `<h3>${shelter.避難施設名称}</h3><p>${shelter.住所}</p><p>${shelter.屋内収容可能人数}人</p>`,
           });
     
           marker.addListener('click', () => {
             infoWindow.open(map, marker);
           });
         });
+      });
 }

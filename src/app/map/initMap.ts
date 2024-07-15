@@ -9,7 +9,7 @@ export const initMap = async (
         zoom: 16,
         mapId: 'DEMO_MAP_ID',
         maxZoom: 25,
-        center: { lat: 35.021242, lng: 135.755613 },//東京駅を中心
+        center: { lat: 35.021242, lng: 135.755613 },
       })
   
       setMap(map)
