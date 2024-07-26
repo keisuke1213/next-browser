@@ -1,15 +1,22 @@
 import  {addMarker}  from './addMarker'
+
+interface Coordinates {
+  latitude: number;
+  longitude: number;
+}
+
 export const initMap = async (
     setMap: React.Dispatch<React.SetStateAction<google.maps.Map | null>>,
+    curLocation: Coordinates
   ) => {
     const mapElement = document.getElementById('map')
   
     if (mapElement) {
       const map = new google.maps.Map(mapElement, {
-        zoom: 16,
+        zoom: 14,
         mapId: 'DEMO_MAP_ID',
         maxZoom: 25,
-        center: { lat: 35.021242, lng: 135.755613 },
+        center: { lat: curLocation.latitude, lng: curLocation.longitude },
       })
   
       setMap(map)

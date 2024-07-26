@@ -40,6 +40,6 @@ export const filter = (currentPosition: Position): Shelter[] => {
       latitude: shelter.緯度,
       longitude: shelter.経度,
     });
-    return distance <= 2;
+    return distance <= 1;
   });
 };

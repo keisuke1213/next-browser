@@ -1,5 +1,5 @@
 'use client'
-import { filter } from './filter';
+import { filter } from '../fileter/getNearSpot';
 
 export const addMarker = (map: google.maps.Map | null) => {
         

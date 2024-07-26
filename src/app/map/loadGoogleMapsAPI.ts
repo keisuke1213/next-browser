@@ -59,11 +59,22 @@ export const loadGoogleMapsAPI = (
       d[l] = (f: string, ...n: any[]) => u().then(() => d[l](f, ...n))
       return u().then(() => {
         // マップを表示する
-        initMap(setMap)
+        if(navigator.geolocation){
+          navigator.geolocation.getCurrentPosition((position) => {
+            const { latitude, longitude } = position.coords;
+            initMap(setMap,{latitude:latitude,longitude:longitude});
+          } ,
+          (error) => {
+            console.log(error);
+            initMap(setMap,{latitude:35.021242,longitude:135.755613});
+          });
+        } else {
+          initMap(setMap,{latitude:35.021242,longitude:135.755613});
+        }
       })
     }
   })({
-    key: process.env.GOOGLE_MAPS_APIKEY,// 環境変数
+    key: process.env.GOOGLE_MAPS_API_KEY,// 環境変数
     v: 'beta',
   })
 }
