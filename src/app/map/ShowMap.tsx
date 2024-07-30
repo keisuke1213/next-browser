@@ -1,5 +1,5 @@
 'use client'
-import { Box, Container,Button } from '@mui/material'
+import { Box, Grid,Button,ButtonGroup,Container } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { loadGoogleMapsAPI } from './loadGoogleMapsAPI'
 import shelters from '../shelter.json'
@@ -26,10 +26,14 @@ export const ShowMap = () => {
 
   return (
     <>
-      <Container maxWidth="xl">
-        <SelectArea map={map} />
-        <Box id="map" style={{ height: '80vh', width: '100%' }}></Box>
-      </Container>
+      <Grid container  maxWidth="xl">
+        <Grid item xs={2}>
+        <SelectArea map={map}/>
+        </Grid>
+        <Grid item xs={10} >
+        <Box id="map" sx={{ height: '75vh', width: '100%', mt: 3 }}></Box>
+        </Grid>
+      </Grid>
     </>
   )
 }
@@ -46,6 +50,11 @@ type selectAreaProps = {
     "下京区": "outlined",
     "右京区": "outlined",
     "左京区": "outlined",
+    "東山区": "outlined",
+    "山科区": "outlined",
+    "伏見区": "outlined",
+    "西京区": "outlined",
+    "南区" : "outlined",
   });
 
   const handleClicked = (area: string) => {
@@ -58,7 +67,6 @@ type selectAreaProps = {
   const handleSubmit = () => {
     const area = Object.keys(buttonState).filter((key) => buttonState[key] === "contained")
     const spots = [...area].flatMap((area) => getFilterSpot(area))
-    console.log(spots)
     addMarker(map,spots)
 
     setButtonState(prevState => {
@@ -95,15 +103,22 @@ type selectAreaProps = {
   
 
   return (
-    <>
-      <Button variant={buttonState['北区']} onClick={() => handleClicked('北区')}>北区</Button>
-      <Button variant={buttonState['上京区']} onClick={() => handleClicked('上京区')}>上京区</Button>
-      <Button variant={buttonState['中京区']} onClick={() => handleClicked('中京区')}>中京区</Button>
-      <Button variant={buttonState['下京区']} onClick={() => handleClicked('下京区')}>下京区</Button>
-      <Button variant={buttonState['右京区']} onClick={() => handleClicked('右京区')}>右京区</Button>
-      <Button variant={buttonState['左京区']} onClick={() => handleClicked('左京区')}>左京区</Button>
-      <Button onClick={handleSubmit}>検索する</Button>
-    </>
+    <Container sx={{mt: 3, ml: 1}}>
+    <Grid container xs={12}>
+      <Button variant={buttonState['北区']} onClick={() => handleClicked('北区')} sx={{px: 3, mb: 1}}>北区</Button>
+      <Button variant={buttonState['上京区']} onClick={() => handleClicked('上京区')} sx={{ mb: 1}}>上京区</Button>
+      <Button variant={buttonState['中京区']} onClick={() => handleClicked('中京区')} sx={{ mb: 1}}>中京区</Button>
+      <Button variant={buttonState['下京区']} onClick={() => handleClicked('下京区')} sx={{ mb: 1}}>下京区</Button>
+      <Button variant={buttonState['右京区']} onClick={() => handleClicked('右京区')} sx={{ mb: 1}}>右京区</Button>
+      <Button variant={buttonState['左京区']} onClick={() => handleClicked('左京区')} sx={{ mb: 1}}>左京区</Button>
+      <Button variant={buttonState['東山区']} onClick={() => handleClicked('東山区')} sx={{ mb: 1}}>東山区</Button>
+      <Button variant={buttonState['山科区']} onClick={() => handleClicked('山科区')} sx={{ mb: 1}}>山科区</Button>
+      <Button variant={buttonState['伏見区']} onClick={() => handleClicked('伏見区')} sx={{ mb: 1}}>伏見区</Button>
+      <Button variant={buttonState['西京区']} onClick={() => handleClicked('西京区')} sx={{ mb: 1}}>西京区</Button>
+      <Button variant={buttonState['南区']} onClick={() => handleClicked('南区')} sx={{ mb: 1}}>南区</Button>
+    </Grid>
+    <Button variant={'outlined'} color="success" onClick={handleSubmit}>検索する</Button>
+    </Container>
   )
 }
 
