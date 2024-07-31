@@ -20,7 +20,7 @@ export const addMarker = (map: google.maps.Map | null) => {
           
          
           const infoWindow = new google.maps.InfoWindow({
-            content: `<h3>${shelter.避難施設名称}</h3><p>${shelter.住所}</p><p>${shelter.屋内収容可能人数}人</p><p>${shelter.連絡先}</p>`,
+            content: `<h3>${shelter.避難施設名称}</h3><p><span style="color: blue">住所   </span>${shelter.住所}</p><p><span style="color: blue">収容可能人数   </span>${shelter.屋内収容可能人数}人</p><p><span style="color: blue">連絡先   </span>${shelter.連絡先}</p>`,
           });
     
           marker.addListener('click', () => {

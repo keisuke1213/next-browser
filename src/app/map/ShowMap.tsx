@@ -1,5 +1,5 @@
 'use client'
-import { Box, Grid,Button,ButtonGroup,Container,InputLabel,FormControl,MenuItem,Select,SelectChangeEvent } from '@mui/material'
+import { Box, Grid,Button,ButtonGroup,Container,InputLabel,FormControl,MenuItem,Select,SelectChangeEvent, useMediaQuery, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { loadGoogleMapsAPI } from './loadGoogleMapsAPI'
 import shelters from '../shelter.json'
@@ -22,7 +22,7 @@ export const ShowMap = () => {
 
   return (
     <>
-      <Grid container  maxWidth="xl">
+      <Grid container  maxWidth="xl" sx={{mb: 5}}>
         <Grid item xs={2}>
         <SelectArea map={map}/>
         </Grid>
@@ -61,7 +61,7 @@ type selectAreaProps = {
         title:spot.避難施設名称,
       });
       const infoWindow = new google.maps.InfoWindow({
-        content: `<h3>${spot.避難施設名称}</h3><p>${spot.住所}</p><p>${spot.屋内収容可能人数}人</p><p>${spot.連絡先}</p>`,
+        content: `<h3>${spot.避難施設名称}</h3><p><span style="color: blue">住所   </span>${spot.住所}</p><p><span style="color: blue">収容可能人数   </span>${spot.屋内収容可能人数}人</p><p><span style="color: blue">連絡先   </span>${spot.連絡先}</p>`,
       });
       marker.addListener('click', () => {
         infoWindow.open(map, marker);
@@ -79,7 +79,7 @@ type selectAreaProps = {
 
   return (
     <>
-    <Container sx={{mt: 2, ml: 1}}>
+    <Container sx={{mt: 2}}>
     <Grid container xs={12}>
       <FormControl fullWidth>
     <InputLabel id="area-select-label">地域を選択</InputLabel>
